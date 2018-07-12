@@ -57,7 +57,7 @@ RUN sudo apt-get install -yq nodejs \
 #COPY phantom /opt/mean.js/node_modules
 
 # Install MEAN.JS Prerequisites
-RUN npm install --quiet -g gulp bower yo mocha karma-cli pm2 gulp-if && npm cache verify
+RUN npm install --quiet -g gulp yo mocha karma-cli pm2 gulp-if yarn && npm cache verify
 
 
 RUN mkdir -p /opt/mean.js/public/lib
@@ -69,17 +69,11 @@ WORKDIR /opt/mean.js
 # when the local package.json file changes.
 # Install npm packages
 COPY package.json /opt/mean.js/package.json
-#RUN npm install --quiet && npm cache clean
-RUN npm install && npm cache verify
-
-# Install bower packages
-COPY bower.json /opt/mean.js/bower.json
-COPY .bowerrc /opt/mean.js/.bowerrc
-
-RUN bower install --quiet --allow-root --config.interactive=false
+# RUN yarn install --silent --non-interactive && yarn cache clean
+RUN yarn install --silent --non-interactive && yarn check --integrity
 
 COPY . /opt/mean.js
 
 # Run MEAN.JS server
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
