@@ -43,58 +43,50 @@ $ dev.sh
 This will run the application image and link it to your running database container.  It will not start the application, however, but put you in the command line ready to do so.
 By default the application starts in development mode and if this is the first time running you should seed the dtabase users, so start the first time with:
 ```bash
-$ MONGO_SEED=true npm start
+$ MONGO_SEED=true yarn start
 ```
 Once the seeding is done you need not do it again unless you lose your mongo container and data somehow, so each
 other time runing the application you can simply run
 ```bash
-$ npm start
+$ yarn start
 ```
-You should now be able to run the application by entering "localhost:3030" into your browser.  If you are not able to view the application properly, then you need to add the Bower node package.  Do this by returning to the command line and running
-```bash
-$ bower install --allow-root
-```
-Once Bower has been installed, run 
-```bash
-$ npm run quiet
-```
+You should now be able to run the application by entering "localhost:3030" into your browser.  
 
 ### Notes
 
 The root files are NOT mounted in the container in the same way as the rest of the code.  Therefore, if you are adding a new
-module through bower or npm you will need to update the local package.json or other files appropriately.
+module through yarn you will need to update the local package.json or other files appropriately.
 
-The node_modules directory does NOT exist in the repo and should not be added in case you accidentally run npm install locally
+The node_modules directory does NOT exist in the repo and should not be added in case you accidentally run yarn or npm install locally
 
 Production Mode:
 In Production:
 ```bash
-MONGO_SEED=true npm run start:prod
-npm run start:prod
+MONGO_SEED=true yarn run start:prod
 ```
 Tests:
 
 ```bash
-$ npm test
+$ yarn test
 ```
 This will run both the server-side tests (located in the `app/tests/` directory) and the client-side tests (located in the `public/modules/*/tests/`).
 
 To execute only the server tests, run the test:server task:
 
 ```bash
-$ npm run test:server
+$ yarn run test:server
 ```
 
 To execute only the server tests and run again only changed tests, run the test:server:watch task:
 
 ```bash
-$ npm run test:server:watch
+$ yarn run test:server:watch
 ```
 
 And to run only the client tests, run the test:client task:
 
 ```bash
-$ npm run test:client
+$ yarn run test:client
 ```
 
 Running with TLS (SSL)
@@ -102,12 +94,12 @@ Application will start by default with secure configuration (SSL mode) turned on
 To run your application in a secure manner you'll need to use OpenSSL and generate a set of self-signed certificates. Unix-based users can use the following command:
 
 ```bash
-$ npm run generate-ssl-certs
+$ yarn run generate-ssl-certs
 ```
 
 After you've generated the key and certificate, place them in the *config/sslcerts* folder.
 
-Finally, execute prod task `npm run start:prod`
+Finally, execute prod task `yarn run start:prod`
 * enable/disable SSL mode in production environment change the `secure` option in `config/env/production.js`
 
 
