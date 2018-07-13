@@ -60,7 +60,9 @@ RUN sudo apt-get install -yq nodejs \
 RUN npm install --quiet -g gulp yo mocha karma-cli pm2 gulp-if yarn && npm cache verify
 
 
-RUN mkdir -p /opt/mean.js/public/lib
+RUN mkdir -p /opt/mean.js/public
+# Create relative symlink in public/lib that points to @bower_components.
+RUN ln -s ../node_modules/@bower_components /opt/mean.js/public/lib
 WORKDIR /opt/mean.js
 
 # Copies the local package.json file to the container
